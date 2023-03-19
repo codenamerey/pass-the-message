@@ -541,6 +541,10 @@ video {
   width: 5rem;
 }
 
+.w-80 {
+  width: 20rem;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -632,6 +636,10 @@ video {
   padding: 0.5rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .placeholder-gray-300::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(209 213 219 / var(--tw-placeholder-opacity));
@@ -640,6 +648,10 @@ video {
 .placeholder-gray-300::placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(209 213 219 / var(--tw-placeholder-opacity));
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 @media (min-width: 768px) {
