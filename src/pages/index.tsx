@@ -14,17 +14,33 @@ import {
   CheckboxGroup,
   Stack
 } from '@chakra-ui/react';
-import { FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<string>('');
+  const [wantedAnswers, setWantedAnswers] = useState<string[]>([]);
+
   const form = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+  }
+
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value)
+  }
+
+  const handleCheckBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+    // If value is in wanted answers, remove it. Else, add value to array
+    wantedAnswers.includes(e.target.value) ? setWantedAnswers(wantedAnswers => wantedAnswers.filter((answer) => answer !== e.target.value)) :
+                                             setWantedAnswers(wantedAnswers => [...wantedAnswers, e.target.value])
+    console.log(wantedAnswers);
+
   }
 
   return (
@@ -41,7 +57,8 @@ export default function Home() {
             <Heading color='whiteAlpha.600'>Pass The Message</Heading>
           </FormLabel>
 
-          <Textarea bg='whiteAlpha.300' color='white' maxW='400px' h='300px' placeholder='Say hi!' className=' placeholder-gray-300' resize='none'>
+          <Textarea bg='whiteAlpha.300' color='white' maxW='400px' h='300px' placeholder='Say hi!' className=' placeholder-gray-300' resize='none' isRequired onChange={handleTextAreaChange}>
+            {message}
           </Textarea>
 
           <FormErrorMessage color='whiteAlpha.200'>
@@ -51,8 +68,8 @@ export default function Home() {
 
           <CheckboxGroup>
             <Stack id='pref-answers' spacing={[3, 5]} direction={['row', 'column']}>
-              <Checkbox value='quirky'>Quirky Answer</Checkbox>
-              <Checkbox value='serious'>Serious Answer</Checkbox>
+              <Checkbox value='quirky' onChange={handleCheckBoxChange}>Quirky Answer</Checkbox>
+              <Checkbox value='serious' onChange={handleCheckBoxChange}>Serious Answer</Checkbox>
             </Stack>
             <FormHelperText color='white'>Pick what answer/s you expect from user</FormHelperText>
           </CheckboxGroup>
