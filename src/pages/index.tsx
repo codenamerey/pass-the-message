@@ -57,8 +57,8 @@ export default function Home() {
             <Heading color='whiteAlpha.600'>Pass The Message</Heading>
           </FormLabel>
 
-          <Textarea bg='whiteAlpha.300' color='white' maxW='400px' h='300px' placeholder='Say hi!' className=' placeholder-gray-300' resize='none' isRequired onChange={handleTextAreaChange}>
-            {message}
+          <Textarea value={message} bg='whiteAlpha.300' color='white' maxW='400px' h='300px' placeholder='Say hi!' className=' placeholder-gray-300' resize='none' isRequired onChange={handleTextAreaChange}>
+
           </Textarea>
 
           <FormErrorMessage color='whiteAlpha.200'>
