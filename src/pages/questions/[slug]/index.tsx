@@ -20,7 +20,7 @@ import {
     useState
 } from 'react';
 import AnswerPanel from '@/components/AnswerPanel';
-
+import Question from '@/components/Question';
 
 type Data = {
     question: string,
@@ -53,9 +53,7 @@ const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) =
     <form>
         <FormControl>
             <Box className=' grow flex flex-col justify-center items-center p-4'>
-                <Box className='aspect-square bg-white p-6 flex justify-center items-center rounded-lg w-80 text-center'>
-                    <Text>{question}</Text>
-                </Box>
+                <Question dataObj={data} />
                 <FormHelperText color='white'>Requested Answers: {
                     !wanted_answers.length ? 'None' :
                     wanted_answers.length > 1 ? (`${wanted_answers[0]} and ${wanted_answers[1]}`) :

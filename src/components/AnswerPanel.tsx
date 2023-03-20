@@ -5,7 +5,7 @@ import {
     Textarea,
     Button
 } from '@chakra-ui/react'
-import { Answers } from '@/pages/answer/index'
+import { Answers } from '@/pages/questions/index'
 interface Props {
     setAnswers: Function,
     answers: Answers,
