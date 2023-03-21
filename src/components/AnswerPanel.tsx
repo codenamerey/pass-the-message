@@ -3,9 +3,10 @@ import {
     TabPanel,
     Text,
     Textarea,
-    Button
+    Button,
+    FormHelperText
 } from '@chakra-ui/react'
-import { Answers, AnswerStructure } from '@/pages/questions/[slug]/index.jsx'
+import { Answers, AnswerStructure } from '@/pages/[user]/questions/[slug]/index.jsx'
 interface Props {
     setAnswers: Function,
     answers: Answers,
@@ -27,30 +28,44 @@ const AnswerPanel = ({ setAnswers, answers, type }:Props) => {
             })
             }
         }
-        />
+        value={answers[type]['content']}
+        isDisabled={answers[type]['is5thRaised']}
+        >
+        </Textarea>
+
         {!answers[type]['is5thRaised'] ? <Button onClick={() => {
             setAnswers({
                 ...answers,
                 [type] : {
                     ...answers[type],
+                    content: '',
                     is5thRaised: !answers[type]['is5thRaised']
                 }
             })
-        }} colorScheme='messenger'> 🚩 Raise 5<sup>th</sup>
+        }} colorScheme='messenger'> 🚩 Take 5<sup>th</sup>
         
         </Button> :
 
-        <Button onClick={() => {
-            setAnswers({
-                ...answers,
-                [type] : {
-                    ...answers[type],
-                    is5thRaised: !answers[type]['is5thRaised']
-                }
-            })
-        }} colorScheme='red'> 🚩 Unraise 5<sup>th</sup>
-        
-        </Button>
+        (
+        <>
+
+            <Button onClick={() => {
+                setAnswers({
+                    ...answers,
+                    [type] : {
+                        ...answers[type],
+                        is5thRaised: !answers[type]['is5thRaised']
+                    }
+                })
+            }} colorScheme='red'> Lower 5<sup>th</sup>
+            
+            </Button>
+
+            <FormHelperText>
+                You took your 5th! If you want to give an answer, lower it down before answering.
+            </FormHelperText>
+        </>
+        )
         }
     </TabPanel>
   )

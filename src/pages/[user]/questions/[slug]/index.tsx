@@ -41,7 +41,7 @@ export interface Answers {
     combined: AnswerStructure
 }
 
-const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const [answers, setAnswers] = useState<Answers>({
         quirky: {
@@ -64,19 +64,18 @@ const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) =
         question,
         wanted_answers
     } = data;
-    console.log(JSON.stringify(answers));
   return (
     <form>
         <FormControl>
             <Box className=' grow flex flex-col justify-center items-center p-4'>
                 <Question dataObj={data} />
-                <FormHelperText color='white'>Requested Answers: {
+                <FormHelperText color='white'>{user} Requested Answers: {
                     !wanted_answers.length ? 'None' :
                     wanted_answers.length > 1 ? (`${wanted_answers[0]} and ${wanted_answers[1]}`) :
                     wanted_answers[0]
                 }</FormHelperText>
 
-                <Tabs p='4' bg='gray.800' colorScheme='messenger' color='white' variant='enclosed' isFitted={false}>
+                <Tabs p='4' bg='gray.800' colorScheme='messenger' color='white' variant='enclosed' isFitted={true}>
                     <TabList>
                         <Tab isDisabled={!areSingularsValid}>Quirky Answer</Tab>
                         <Tab isDisabled={!areSingularsValid}>Serious Answer</Tab>
@@ -101,12 +100,11 @@ const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) =
 }
 
 export const getServerSideProps : GetServerSideProps = async(context) => {
-    console.log('heyyy!')
     const res = await fetch('http://localhost:3000/api/hello');
     let data = await res.json()
     console.log(context.params?.slug);
     data = (data.filter((datum:Data) => datum.slug === `${context.params?.slug}`))[0];
-    console.log(data);
+    
     return {
         props: {
             data

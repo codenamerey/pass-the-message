@@ -2,7 +2,7 @@ import {
     Box,
     Text
 } from '@chakra-ui/react';
-import { Data } from '@/pages/questions/index';
+import { Data } from '@/pages/[user]/questions/index';
 const Question = ({ dataObj }: {dataObj: Data}) => {
 
   return (
