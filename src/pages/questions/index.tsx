@@ -13,17 +13,11 @@ import {
 } from 'react';
 import AnswerPanel from '@/components/AnswerPanel';
 import Question from '@/components/Question';
-
+import { Answers } from './[slug]/index.jsx';
 export type Data = {
     question: string,
     wanted_answers: string[],
     slug: string
-}
-
-export interface Answers {
-    quirky: string,
-    serious: string,
-    combined: string
 }
 
 const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) => {

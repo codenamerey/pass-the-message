@@ -28,27 +28,43 @@ type Data = {
     slug: string
 }
 
+export type AnswerStructure = {
+    content: string,
+    is5thRaised: boolean
+}
+
 export interface Answers {
-    quirky: string,
-    serious: string,
-    combined: string
+    [placeholder: symbol | string]: AnswerStructure,
+
+    quirky: AnswerStructure,
+    serious: AnswerStructure,
+    combined: AnswerStructure
 }
 
 const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const [answers, setAnswers] = useState<Answers>({
-        quirky: '',
-        serious: '',
-        combined: ''
+        quirky: {
+            content: '',
+            is5thRaised: false
+        },
+        serious: {
+            content: '',
+            is5thRaised: false
+        },
+        combined: {
+            content: '',
+            is5thRaised: false
+        }
     })
-    const isCombinedValid:Boolean | undefined = (!answers.quirky && !answers.serious) 
-    const areSingularsValid:Boolean | undefined = (!answers.combined)
+    const isCombinedValid:Boolean | undefined = (!answers.quirky.content && !answers.serious.content) 
+    const areSingularsValid:Boolean | undefined = (!answers.combined.content)
 
     const {
         question,
         wanted_answers
     } = data;
-
+    console.log(JSON.stringify(answers));
   return (
     <form>
         <FormControl>
@@ -60,7 +76,7 @@ const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) =
                     wanted_answers[0]
                 }</FormHelperText>
 
-                <Tabs bg='gray.800' colorScheme='linkedin' color='white'>
+                <Tabs p='4' bg='gray.800' colorScheme='messenger' color='white' variant='enclosed' isFitted={false}>
                     <TabList>
                         <Tab isDisabled={!areSingularsValid}>Quirky Answer</Tab>
                         <Tab isDisabled={!areSingularsValid}>Serious Answer</Tab>

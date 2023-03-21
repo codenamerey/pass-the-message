@@ -5,7 +5,7 @@ import {
     Textarea,
     Button
 } from '@chakra-ui/react'
-import { Answers } from '@/pages/questions/index'
+import { Answers, AnswerStructure } from '@/pages/questions/[slug]/index.jsx'
 interface Props {
     setAnswers: Function,
     answers: Answers,
@@ -20,12 +20,38 @@ const AnswerPanel = ({ setAnswers, answers, type }:Props) => {
         onChange={(e) => {
             setAnswers({
                 ...answers,
-                [type]: e.target.value
+                [type]: {
+                    ...answers[type],
+                    content: e.target.value
+                }
             })
             }
         }
         />
-        <Button colorScheme='messenger'>🚩 Raise 5<sup>th</sup></Button>
+        {!answers[type]['is5thRaised'] ? <Button onClick={() => {
+            setAnswers({
+                ...answers,
+                [type] : {
+                    ...answers[type],
+                    is5thRaised: !answers[type]['is5thRaised']
+                }
+            })
+        }} colorScheme='messenger'> 🚩 Raise 5<sup>th</sup>
+        
+        </Button> :
+
+        <Button onClick={() => {
+            setAnswers({
+                ...answers,
+                [type] : {
+                    ...answers[type],
+                    is5thRaised: !answers[type]['is5thRaised']
+                }
+            })
+        }} colorScheme='red'> 🚩 Unraise 5<sup>th</sup>
+        
+        </Button>
+        }
     </TabPanel>
   )
 }
