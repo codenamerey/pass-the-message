@@ -102,7 +102,6 @@ const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSidePro
 export const getServerSideProps : GetServerSideProps = async(context) => {
     const res = await fetch('http://localhost:3000/api/hello');
     let data = await res.json()
-    console.log(context.params?.slug);
     data = (data.filter((datum:Data) => datum.slug === `${context.params?.slug}`))[0];
     
     return {
