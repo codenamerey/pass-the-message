@@ -4,7 +4,7 @@ import Link from "next/link.js"
 const Header = () => {
   return (
     <Heading className=" flex items-center justify-center p-4 gap-2">
-        <Link href='/'>
+        <Link href='/' className=" flex items-center justify-center gap-2">
           <EmailIcon />
           Pass The Message
         </Link>
