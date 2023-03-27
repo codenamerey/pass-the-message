@@ -9,7 +9,11 @@ const userDetail = {
 
 /* GET users listing. */
 router.get('/me', function(req, res, next) {
-  res.json(userDetail);
+  const failJSON = {
+    message: 'User not logged in'
+  }
+  
+  res.status(403).json(failJSON);
 });
 
 module.exports = router;
