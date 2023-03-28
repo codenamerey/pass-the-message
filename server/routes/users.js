@@ -1,29 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-const User = require('../models/User');
+const {
+  get_user,
+  get_user_unanswered_questions
+} = require('../controllers/userController');
 
-/* GET users listing. */
-router.get('/me', async function(req, res, next) {
-  const failJSON = {
-    message: 'User not logged in'
-  }
+// Gets currently signed in user (Right now gets 'Random User')
+router.get('/me', get_user);
 
-  try {
-    const user = await User.findById('64210958b7d2a96badeebd7a')
-    const {
-      password,
-      ...userDetails
-    } = user.toJSON();
-
-    res.status(200).json(userDetails);
-  }
-
-  catch(err) {
-    console.log(err);
-    res.status(403).json(failJSON);
-  }
-
-});
+// Questions
+router.get('/questions', get_user_unanswered_questions);
 
 module.exports = router;
