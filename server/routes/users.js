@@ -1,19 +1,29 @@
 var express = require('express');
 var router = express.Router();
 
-const userDetail = {
-  fullname: 'Tofu Chan',
-  email: 'tofuchan@gmail.com',
-  username: 'itstofuchan'
-}
+const User = require('../models/User');
 
 /* GET users listing. */
-router.get('/me', function(req, res, next) {
+router.get('/me', async function(req, res, next) {
   const failJSON = {
     message: 'User not logged in'
   }
-  
-  res.status(403).json(failJSON);
+
+  try {
+    const user = await User.findById('64210958b7d2a96badeebd7a')
+    const {
+      password,
+      ...userDetails
+    } = user.toJSON();
+
+    res.status(200).json(userDetails);
+  }
+
+  catch(err) {
+    console.log(err);
+    res.status(403).json(failJSON);
+  }
+
 });
 
 module.exports = router;

@@ -13,7 +13,7 @@ import UserContext from '@/context/UserContext';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const { fullname, setUser } = useContext(UserContext);
+  const { fullname, first_name, setUser } = useContext(UserContext);
   const fetchUser = useRef(() => {
 
   });
@@ -26,11 +26,12 @@ export default function Home() {
     }
 
     const user = await res.json();
+    console.log(user)
     return user
   }
 
   useEffect(() => {
-    if( fullname ) return
+    if( first_name ) return
 
     (async() => {
       const user = await fetchUser.current();
@@ -42,7 +43,7 @@ export default function Home() {
   return (
     <>
       <section className=' flex flex-col justify-center items-center grow text-center gap-y-4 [&>button]:flex [&>button]:space-x-2'>
-      {!fullname &&
+      {!first_name &&
         <>
           <Heading color='whiteAlpha.600'>Relay your message to someone.</Heading>
           <Button colorScheme='whatsapp'>Register</Button>
@@ -65,8 +66,12 @@ export default function Home() {
         </>  
           }
 
-      {fullname &&
-        <Heading>Welcome, {fullname}!</Heading>}
+      {first_name &&
+        <>
+          <Heading>Welcome, {first_name}!</Heading>
+          <Heading>{fullname}</Heading>
+        </>
+      }
       </section>
     </>
   )

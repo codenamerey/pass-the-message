@@ -25,7 +25,11 @@ const UserSchema = new Schema({
         type: String,
         required: true
     }
-});
+},
+    {
+        toJSON: { virtuals: true }
+    }
+);
 
 UserSchema.methods.generateJWTToken = function() {
     const user = {
