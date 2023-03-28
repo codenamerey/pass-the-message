@@ -8,6 +8,13 @@ const cors = require('cors');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+// Use 'Random User' id for the mean time
+app.use('/users', (req, res, next) => {
+    req.id = '64210958b7d2a96badeebd7a';
+    next();
+})
+
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
