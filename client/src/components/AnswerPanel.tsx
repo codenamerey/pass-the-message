@@ -6,7 +6,7 @@ import {
     Button,
     FormHelperText
 } from '@chakra-ui/react'
-import { Answers, AnswerStructure } from '@/pages/[user]/questions/[slug]/index.jsx'
+import { Answers, AnswerStructure } from '@/pages/[user]/questions/[id]/index.jsx'
 interface Props {
     setAnswers: Function,
     answers: Answers,

@@ -16,5 +16,5 @@ router.get('/me', get_user);
 
 // Questions
 router.get('/questions', get_user_unanswered_questions);
-router.get('/:id/questions', get_user_answered_questions);
+router.get('/:username/questions', get_user_answered_questions);
 module.exports = router;

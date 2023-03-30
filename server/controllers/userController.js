@@ -66,9 +66,13 @@ exports.get_user_unanswered_questions = async (req, res, next) => {
 // Does not require auth, everyone is supposed to see this
 exports.get_user_answered_questions = async(req, res, next) => {
   try {
-    const questions = await Question.find({}, 'question answer').populate('answer')
-
-    res.status(200).json(questions)
+    const questions = await Question.find({
+      answered: true,
+    }, 'question answer user').populate(['user', 'answer'])
+    const user_questions = questions.filter((question) => {
+      return question.user.username === req.params.username
+    })
+    res.status(200).json(user_questions)
   }
   catch (err) {
     const failJSON = {

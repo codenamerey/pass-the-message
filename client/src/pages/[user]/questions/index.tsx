@@ -13,7 +13,7 @@ import {
 } from 'react';
 import AnswerPanel from '@/components/AnswerPanel';
 import Question from '@/components/Question';
-import { Answers } from './[slug]/answer/index.jsx';
+import { Answers } from './[id]/answer/index.jsx';
 export type Data = {
     question: string,
     wanted_answers: string[],
@@ -39,9 +39,9 @@ const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) =
   )
 }
 
-export const getServerSideProps : GetServerSideProps = async() => {
+export const getServerSideProps : GetServerSideProps = async(context) => {
 
-    const res = await fetch('http://localhost:3000/api/hello');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${context.params?.user}/questions/`);
     const data:Answers[] = await res.json()
     return {
         props: {
