@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Question = require('../models/Question');
 const Answer = require('../models/Answer');
+
 exports.get_user = async function(req, res, next) {
     const failJSON = {
       message: 'User not logged in'
@@ -17,9 +18,29 @@ exports.get_user = async function(req, res, next) {
     }
   
     catch(err) {
-      console.log(err);
       res.status(403).json(failJSON);
     }
+}
+
+exports.check_user_exist = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      username: req.params.username
+    })
+    const {
+      fullname,
+      ...userDetails
+    } = user.toJSON()
+    res.status(200).json(fullname);
+  }
+
+  catch(err) {
+    const failJSON = {
+      message: 'User not found!'
+    }
+
+    res.status(404).json(failJSON);
+  }
 }
 
 exports.get_user_unanswered_questions = async (req, res, next) => {
@@ -50,7 +71,6 @@ exports.get_user_answered_questions = async(req, res, next) => {
     res.status(200).json(questions)
   }
   catch (err) {
-    console.log(err);
     const failJSON = {
       message: err
     }
