@@ -21,25 +21,9 @@ import {
 } from 'react';
 import AnswerPanel from '@/components/AnswerPanel';
 import Question from '@/components/Question';
-
-type Data = {
-    question: string,
-    wanted_answers: string[],
-    slug: string
-}
-
-export type AnswerStructure = {
-    content: string,
-    is5thRaised: boolean
-}
-
-export interface Answers {
-    [placeholder: symbol | string]: AnswerStructure,
-
-    quirky: AnswerStructure,
-    serious: AnswerStructure,
-    combined: AnswerStructure
-}
+import {
+    Answers
+} from "@/interfaces/types"
 
 const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
@@ -68,7 +52,7 @@ const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSidePro
     <form>
         <FormControl>
             <Box className=' grow flex flex-col justify-center items-center p-4'>
-                <Question dataObj={data} />
+                <Question dataObj={data} user={user}/>
                 <FormHelperText color='white'>{user} Requested Answers: {
                     !wanted_answers.length ? 'None' :
                     wanted_answers.length > 1 ? (`${wanted_answers[0]} and ${wanted_answers[1]}`) :
@@ -100,13 +84,13 @@ const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSidePro
 }
 
 export const getServerSideProps : GetServerSideProps = async(context) => {
-    const res = await fetch('http://localhost:3000/api/hello');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${context.params?.user}/questions/${context.params?.id}`);
     let data = await res.json()
-    data = (data.filter((datum:Data) => datum.slug === `${context.params?.slug}`))[0];
     
     return {
         props: {
-            data
+            data,
+            user: context.params?.user
         }
     }
 }

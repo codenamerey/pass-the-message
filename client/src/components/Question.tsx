@@ -2,15 +2,22 @@ import {
     Box,
     Text
 } from '@chakra-ui/react';
-import { Data } from '@/pages/[user]/questions/index';
-const Question = ({ dataObj }: {dataObj: Data}) => {
+import Link from 'next/link';
+
+import {
+  Data
+} from '@/interfaces/types'
+
+const Question = ({ dataObj, user }: {dataObj: Data, user: string}) => {
 
   return (
-    <Box className=' bg-fuchsia-800 shadow-inner shadow-fuchsia-900 text-white w-80 aspect-square flex rounded-lg justify-center items-center' key={dataObj.slug}>
-        <Text>
-            {dataObj.question}
-        </Text>
-    </Box>
+      <Link href={`../${user}/questions/${dataObj._id}`}>
+        <Box className=' bg-fuchsia-800 shadow-inner shadow-fuchsia-900 text-white w-80 aspect-square flex rounded-lg justify-center items-center'>
+            <Text>
+                {dataObj.question}
+            </Text>
+        </Box>
+      </Link>
   )
 }
 

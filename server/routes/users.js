@@ -5,7 +5,8 @@ const {
   get_user,
   check_user_exist,
   get_user_unanswered_questions,
-  get_user_answered_questions
+  get_user_answered_questions,
+  get_user_single_answered_question
 } = require('../controllers/userController');
 
 // Check if user exists
@@ -17,4 +18,5 @@ router.get('/me', get_user);
 // Questions
 router.get('/questions', get_user_unanswered_questions);
 router.get('/:username/questions', get_user_answered_questions);
+router.get('/:username/questions/:id', get_user_single_answered_question)
 module.exports = router;

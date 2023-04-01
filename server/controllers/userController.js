@@ -82,3 +82,29 @@ exports.get_user_answered_questions = async(req, res, next) => {
     res.status(502).json(failJSON)
   }
 }
+
+exports.get_user_single_answered_question = async(req, res, next) => {
+  try {
+    const question = await Question.findOne({
+      id: req.params.id,
+      answered: true
+    }).populate(['question', 'user', 'answer'])
+
+    const {
+      user,
+      ...questionDetails
+    } = question.toJSON()
+    console.log(questionDetails)
+    question.user.username == req.params.username ?
+                              res.status(200).json(questionDetails) :
+                              res.status(404).json({message: "Question not found"})
+  }
+
+  catch(err) {
+    const failJSON = {
+      message: err
+    }
+    res.status(502).json(failJSON)
+  }
+
+}

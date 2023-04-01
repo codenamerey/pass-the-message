@@ -13,14 +13,13 @@ import {
 } from 'react';
 import AnswerPanel from '@/components/AnswerPanel';
 import Question from '@/components/Question';
-import { Answers } from './[id]/answer/index.jsx';
-export type Data = {
-    question: string,
-    wanted_answers: string[],
-    slug: string
-}
+import {
+    Answers,
+    Data
+} from '@/interfaces/types'
 
-const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
   return (
     <>
@@ -28,7 +27,7 @@ const Answer = ({data}:InferGetServerSidePropsType<typeof getServerSideProps>) =
             {
                 data.map((dataObj:Data) => {
                     return (
-                        <Question key={dataObj.slug} dataObj={dataObj} />
+                        <Question user={user} key={dataObj._id} dataObj={dataObj} />
                     )
                 })
             
@@ -45,7 +44,8 @@ export const getServerSideProps : GetServerSideProps = async(context) => {
     const data:Answers[] = await res.json()
     return {
         props: {
-            data
+            data,
+            user: context.params?.user
         }
     }
 }
