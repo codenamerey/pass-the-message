@@ -16,7 +16,7 @@ const index = ({ question_and_ans }:InferGetServerSidePropsType<typeof getServer
   return (
     <>
       <section className=' grow flex flex-col justify-center items-center space-y-4'>
-        <Heading color='whiteAlpha.700'>{question}</Heading>
+        <Heading color='whiteAlpha.700' as='h1'>{question}</Heading>
         {
           Object.keys(answer).slice(0, 3).map((answer_type) => {
             return <QuestionAndAnswer answer_type={answer_type} answer={answer[answer_type].content} is5thRaised={answer[answer_type].is5thRaised}/>

@@ -6,8 +6,8 @@ import { Card,
 const CardContent = ({ answer_type, answer }:  {answer_type: string, answer: string}) => {
     return (
         <>
-            <CardHeader>
-                <Heading size='md'>{answer_type}</Heading>
+            <CardHeader as='div'>
+                <Heading size='md' as='h1'>{answer_type}</Heading>
             </CardHeader>
 
             <CardBody>
