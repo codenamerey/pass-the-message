@@ -2,6 +2,8 @@ const User = require('../models/User');
 const Question = require('../models/Question');
 const Answer = require('../models/Answer');
 
+// #region GET functions
+
 exports.get_user = async function(req, res, next) {
     const failJSON = {
       message: 'User not logged in'
@@ -108,3 +110,32 @@ exports.get_user_single_answered_question = async(req, res, next) => {
   }
 
 }
+
+// #endregion
+
+// #region POST functions
+exports.create_user = async(req, res) => {
+  const {
+    first_name,
+    last_name,
+    username,
+    email
+  } = req.body;
+
+  try {
+    const user = new User({
+      first_name,
+      last_name,
+      username,
+      email
+    })
+
+    await user.save();
+    res.status(200).json(user.toJSON())
+
+  } catch(err) {
+    res.status(500).json({ message: "Error creating new user" })
+  }
+
+}
+// #endregion
