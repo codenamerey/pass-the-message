@@ -12,11 +12,11 @@ const {
 
 router.post('/', create_user);
 
+router.get('/me', get_user);
 // Check if user exists
 router.get('/:username', check_user_exist);
 
 // Gets currently signed in user (Right now gets 'Random User')
-router.get('/me', get_user);
 
 // Questions
 router.get('/questions', get_user_unanswered_questions);

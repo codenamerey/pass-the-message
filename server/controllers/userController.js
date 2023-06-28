@@ -8,7 +8,9 @@ exports.get_user = async function(req, res, next) {
     const failJSON = {
       message: 'User not logged in'
     }
-  
+    
+    console.log('Pumasok naman ang beshy ko')
+
     try {
       const user = await User.findById(req.id)
       const {
@@ -16,6 +18,8 @@ exports.get_user = async function(req, res, next) {
         ...userDetails
       } = user.toJSON();
   
+      console.log(req.id, user);
+
       res.status(200).json(userDetails);
     }
   
