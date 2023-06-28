@@ -5,10 +5,26 @@ const signup = () => {
   return (
     <>
         <Form>
+
+            <FormLabel>
+                First Name
+            </FormLabel>
+            <Input type="text" name="first_name"/>
+
+            <FormLabel>
+                Last Name
+            </FormLabel>
+            <Input type="text" name="last_name"/>
+
             <FormLabel>
                 Username
             </FormLabel>
-            <Input type="text" />
+            <Input type="text" name="username"/>
+
+            <FormLabel>
+                Email
+            </FormLabel>
+            <Input type="email" name="email"/>
 
             <FormLabel>
                 Password
