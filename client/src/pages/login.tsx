@@ -4,21 +4,21 @@ import React from 'react'
 
 const login = () => {
     const logInHandler = () => {
-        
+
     }
 
   return (
     <>
         <Form onSubmit={logInHandler}>
-            <FormLabel>
-                Username/Email Address:
+            <FormLabel htmlFor='username'>
+                Username:
             </FormLabel>
-            <Input type="email" />
+            <Input type="text" id="username" name="username"/>
 
-            <FormLabel>
+            <FormLabel htmlFor='password'>
                 Password
             </FormLabel>
-            <Input type="password" />
+            <Input type="password" id="password" name="password"/>
 
             <Button colorScheme="whatsapp">
                 Log In
