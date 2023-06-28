@@ -119,21 +119,28 @@ exports.create_user = async(req, res) => {
     first_name,
     last_name,
     username,
-    email
+    email,
+    password
   } = req.body;
+
+  console.log('First name', first_name);
+
+  console.log(req.body);
 
   try {
     const user = new User({
       first_name,
       last_name,
       username,
-      email
+      email,
+      password
     })
 
     await user.save();
     res.status(200).json(user.toJSON())
 
   } catch(err) {
+    console.log(err);
     res.status(500).json({ message: "Error creating new user" })
   }
 

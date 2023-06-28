@@ -3,9 +3,13 @@ import { Button, FormLabel, Input } from '@chakra-ui/react'
 import React from 'react'
 
 const login = () => {
+    const logInHandler = () => {
+        
+    }
+
   return (
     <>
-        <Form>
+        <Form onSubmit={logInHandler}>
             <FormLabel>
                 Username/Email Address:
             </FormLabel>

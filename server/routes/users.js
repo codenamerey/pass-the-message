@@ -6,8 +6,11 @@ const {
   check_user_exist,
   get_user_unanswered_questions,
   get_user_answered_questions,
-  get_user_single_answered_question
+  get_user_single_answered_question,
+  create_user
 } = require('../controllers/userController');
+
+router.post('/', create_user);
 
 // Check if user exists
 router.get('/:username', check_user_exist);
