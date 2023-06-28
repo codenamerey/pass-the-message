@@ -14,7 +14,7 @@ router.post('/', create_user);
 
 router.get('/me', get_user);
 // Check if user exists
-router.get('/:username', check_user_exist);
+router.get('/single/:username', check_user_exist);
 
 // Gets currently signed in user (Right now gets 'Random User')
 
@@ -22,4 +22,9 @@ router.get('/:username', check_user_exist);
 router.get('/questions', get_user_unanswered_questions);
 router.get('/:username/questions', get_user_answered_questions);
 router.get('/:username/questions/:id', get_user_single_answered_question)
+
+router.param('username', (req, res, next, username) => {
+  req.username = username;
+  next()
+})
 module.exports = router;

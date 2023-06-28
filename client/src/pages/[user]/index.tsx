@@ -99,11 +99,12 @@ export default function Home({ user }: InferGetServerSidePropsType<typeof getSer
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const username = context.params?.user
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${username}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/single/${username}`)
 
     let user;
     if(res.status == 404) {
       user = await res.json()
+      console.log(user)
     } else {
       user = await res.json()
     }

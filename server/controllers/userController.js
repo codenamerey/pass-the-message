@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Question = require('../models/Question');
 const Answer = require('../models/Answer');
+const { findUserByUsername } = require('../utils/dbHelpers.js');
 
 // #region GET functions
 
@@ -31,7 +32,7 @@ exports.get_user = async function(req, res, next) {
 exports.check_user_exist = async (req, res, next) => {
   try {
     const user = await User.findOne({
-      username: req.params.username
+      username: req.username
     })
     const {
       fullname,
@@ -148,5 +149,22 @@ exports.create_user = async(req, res) => {
     res.status(500).json({ message: "Error creating new user" })
   }
 
+}
+
+exports.create_question = async(req, res) => {
+
+  const {
+    username,
+    content,
+    wanted_answers
+  } = req.body
+
+  const user = await findUserByUsername(username);
+
+  const question = new Question({
+    user,
+    content,
+    wanted_answers
+  })
 }
 // #endregion
