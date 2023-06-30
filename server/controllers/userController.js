@@ -9,11 +9,11 @@ exports.get_user = async function(req, res, next) {
     const failJSON = {
       message: 'User not logged in'
     }
-    
-    console.log('Pumasok naman ang beshy ko')
 
     try {
-      const user = await User.findById(req.id)
+      console.log('Nandito ako');
+      console.log(req.user.id);
+      const user = await User.findById(req.user.id)
       const {
         password,
         ...userDetails

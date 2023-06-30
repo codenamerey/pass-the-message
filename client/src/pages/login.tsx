@@ -12,10 +12,7 @@ const login = () => {
         e.preventDefault();
         const formValues = getFormValues(formRef.current!);
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/local`, formValues, {
-            withCredentials: true,
-            headers: {
-                'Access-Control-Allow-Origin': 'true'
-            }
+            withCredentials: true
         })
     }
 

@@ -9,6 +9,8 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useContext } from 'react';
 import UserContext from '@/context/UserContext';
+import axiosInstance from '@/locals/axiosInstance';
+import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,15 +21,17 @@ export default function Home() {
   });
 
   fetchUser.current = async() => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`);
-    if(res.status == 403) {
-      const error = await res.json();
-      return null
-    }
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`, {
+        withCredentials: true
+      });
 
-    const user = await res.json();
-    console.log(user)
-    return user
+      const user = res.data
+      console.log(user)
+      return user
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   useEffect(() => {

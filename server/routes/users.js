@@ -9,10 +9,11 @@ const {
   get_user_single_answered_question,
   create_user
 } = require('../controllers/userController');
+const requireJwtAuth = require('../middleware/requireJwtAuth');
 
 router.post('/', create_user);
 
-router.get('/me', get_user);
+router.get('/me', requireJwtAuth, get_user);
 // Check if user exists
 router.get('/single/:username', check_user_exist);
 

@@ -10,11 +10,6 @@ const authRouter = require('./routes/auth.js');
 
 var app = express();
 
-// Use 'Random User' id for the mean time
-app.use('/users', (req, res, next) => {
-    req.id = '649beb8bfbafd9813d6c0969';
-    next();
-})
 
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(logger('dev'));
