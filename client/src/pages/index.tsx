@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useContext } from 'react';
 import UserContext from '@/context/UserContext';
 import axios from 'axios';
+import LogOut from '@/components/LogOut';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -72,7 +73,7 @@ export default function Home() {
       {first_name &&
         <>
           <Heading>Welcome, {first_name}!</Heading>
-          <Heading>{fullname}</Heading>
+          <LogOut></LogOut>
         </>
       }
       </section>

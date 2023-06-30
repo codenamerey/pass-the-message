@@ -17,3 +17,10 @@ exports.localLogIn = (req, res, next) => {
         }
     })(req, res, next)
 }
+
+exports.logOut = (req, res) => {
+    req?.status(200).cookie('token', {
+        httpOnly: true,
+        expires: new Date(1)
+    })
+}
