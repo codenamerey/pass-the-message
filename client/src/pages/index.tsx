@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef, useContext } from 'react';
 import UserContext from '@/context/UserContext';
-import axiosInstance from '@/locals/axiosInstance';
 import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] })

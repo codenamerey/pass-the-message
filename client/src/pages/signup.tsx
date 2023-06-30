@@ -32,33 +32,31 @@ const signup = () => {
 
   return (
     <>
-        <form onSubmit={signUpSubmit} ref={formRef}>
-            <Form onSubmit={signUpSubmit}>
-                <FormLabel htmlFor='first_name'>
-                    First Name
-                </FormLabel>
-                <Input id="first_name" type="text" name="first_name"/>
-                <FormLabel htmlFor='last_name'>
-                    Last Name
-                </FormLabel>
-                <Input id="last_name" type="text" name="last_name"/>
-                <FormLabel htmlFor='username'>
-                    Username
-                </FormLabel>
-                <Input id="username" type="text" name="username"/>
-                <FormLabel htmlFor='email'>
-                    Email
-                </FormLabel>
-                <Input id="email" type="email" name="email"/>
-                <FormLabel htmlFor='password'>
-                    Password
-                </FormLabel>
-                <Input name="password" id="password" type="password" />
-                <Button colorScheme="whatsapp" type='submit'>
-                    Sign Up
-                </Button>
-            </Form>
-        </form>
+        <Form onSubmit={signUpSubmit} ref={formRef}>
+            <FormLabel htmlFor='first_name'>
+                First Name
+            </FormLabel>
+            <Input id="first_name" type="text" name="first_name"/>
+            <FormLabel htmlFor='last_name'>
+                Last Name
+            </FormLabel>
+            <Input id="last_name" type="text" name="last_name"/>
+            <FormLabel htmlFor='username'>
+                Username
+            </FormLabel>
+            <Input id="username" type="text" name="username"/>
+            <FormLabel htmlFor='email'>
+                Email
+            </FormLabel>
+            <Input id="email" type="email" name="email"/>
+            <FormLabel htmlFor='password'>
+                Password
+            </FormLabel>
+            <Input name="password" id="password" type="password" />
+            <Button colorScheme="whatsapp" type='submit'>
+                Sign Up
+            </Button>
+        </Form>
     </>
   )
 }

@@ -10,6 +10,7 @@ const login = () => {
 
     const logInHandler = (e:FormEvent) => {
         e.preventDefault();
+        console.log(formRef?.current);
         const formValues = getFormValues(formRef.current!);
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/local`, formValues, {
             withCredentials: true
@@ -18,21 +19,19 @@ const login = () => {
 
   return (
     <>
-        <form onSubmit={logInHandler} ref={formRef}>
-            <Form onSubmit={logInHandler}>
-                <FormLabel htmlFor='username'>
-                    Username:
-                </FormLabel>
-                <Input type="text" id="username" name="username"/>
-                <FormLabel htmlFor='password'>
-                    Password
-                </FormLabel>
-                <Input type="password" id="password" name="password"/>
-                <Button type="submit" colorScheme="whatsapp">
-                    Log In
-                </Button>
-            </Form>
-        </form>
+        <Form onSubmit={logInHandler} ref={formRef}>
+            <FormLabel htmlFor='username'>
+                Username:
+            </FormLabel>
+            <Input type="text" id="username" name="username"/>
+            <FormLabel htmlFor='password'>
+                Password
+            </FormLabel>
+            <Input type="password" id="password" name="password"/>
+            <Button type="submit" colorScheme="whatsapp">
+                Log In
+            </Button>
+        </Form>
     </>
   )
 }
