@@ -11,6 +11,7 @@ import { useEffect, useRef, useContext } from 'react';
 import UserContext from '@/context/UserContext';
 import axios from 'axios';
 import LogOut from '@/components/LogOut';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -50,7 +51,7 @@ export default function Home() {
       {!first_name &&
         <>
           <Heading color='whiteAlpha.600'>Relay your message to someone.</Heading>
-          <Button colorScheme='whatsapp'>Register</Button>
+          <Link href="/signup"><Button colorScheme='whatsapp'>Register</Button></Link>
           <Button colorScheme='messenger' className='flex space-x-4 color-yellow-500'>
             <Image
               src='https://www.facebook.com/images/fb_icon_325x325.png'
@@ -73,7 +74,7 @@ export default function Home() {
       {first_name &&
         <>
           <Heading>Welcome, {first_name}!</Heading>
-          <LogOut></LogOut>
+          <LogOut />
         </>
       }
       </section>
