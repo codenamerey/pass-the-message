@@ -68,6 +68,8 @@ export default function Home() {
             />
             <Text>Register with Google</Text>
           </Button>
+
+          <Text>Already have an account? <Link href='login' className=' text-blue-900 font-bold'>Log in here!</Link> </Text>
         </>  
           }
 

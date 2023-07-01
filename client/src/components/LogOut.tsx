@@ -5,7 +5,7 @@ const LogOut = () => {
 
     const logOutHandler = () => {
         try {
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/signout`)
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/logout`, { withCredentials: true })
             window.location.href = '/';
         } catch(err) {
             console.error(err)

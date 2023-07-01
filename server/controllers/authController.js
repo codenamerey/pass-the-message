@@ -19,8 +19,16 @@ exports.localLogIn = (req, res, next) => {
 }
 
 exports.logOut = (req, res) => {
-    req?.status(200).cookie('token', {
-        httpOnly: true,
-        expires: new Date(1)
-    })
+
+    try {
+        console.log(req.cookie)
+
+        res.cookie('token', '', {
+            httpOnly: true,
+            expires: new Date(1)
+        })
+        res.status(200).end()
+    } catch(err) {
+        console.log(err)
+    }
 }
