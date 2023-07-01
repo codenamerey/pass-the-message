@@ -12,9 +12,16 @@ const login = () => {
         e.preventDefault();
         console.log(formRef?.current);
         const formValues = getFormValues(formRef.current!);
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/local`, formValues, {
-            withCredentials: true
-        })
+
+        try {
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/local`, formValues, {
+                withCredentials: true
+            })
+
+            window.location.href = '/';
+        } catch(err) {
+            console.error(err)
+        }
     }
 
   return (
