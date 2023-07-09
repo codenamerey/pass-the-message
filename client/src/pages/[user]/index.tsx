@@ -16,19 +16,36 @@ import {
 } from '@chakra-ui/react';
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { getFormValues } from '@/utils/formHelpers';
+import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home({ user, username }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string>('');
   const [wantedAnswers, setWantedAnswers] = useState<string[]>([]);
 
   const form = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async(e: FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    console.log(user);
+    const questionParams = {
+      content: message,
+      wanted_answers: wantedAnswers,
+      username
+    } 
+
+    try {
+
+      console.log(questionParams);
+
+      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${username}/questions`, questionParams);
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,11 +91,13 @@ export default function Home({ user }: InferGetServerSidePropsType<typeof getSer
 
 
           <CheckboxGroup>
+
+            <FormHelperText color='white'>Pick what answer/s you expect from user</FormHelperText>
+
             <Stack id='pref-answers' spacing={[3, 5]} direction={['row', 'column']}>
               <Checkbox value='quirky' onChange={handleCheckBoxChange}>Quirky Answer</Checkbox>
               <Checkbox value='serious' onChange={handleCheckBoxChange}>Serious Answer</Checkbox>
             </Stack>
-            <FormHelperText color='white'>Pick what answer/s you expect from user</FormHelperText>
           </CheckboxGroup>
 
           <Button type='submit' colorScheme='messenger' isLoading={isLoading}>Pass!</Button>
@@ -110,7 +129,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            user
+            user,
+            username
         }
     }
 }

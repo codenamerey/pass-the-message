@@ -159,12 +159,25 @@ exports.create_question = async(req, res) => {
     wanted_answers
   } = req.body
 
-  const user = await findUserByUsername(username);
+  console.log(username);
 
-  const question = new Question({
-    user,
-    content,
-    wanted_answers
-  })
+  try {
+    const user = await findUserByUsername(username);
+
+
+    // Save new question to database
+    console.log(wanted_answers);
+    const question = new Question({
+      content,
+      wanted_answers,
+      user
+    })
+    
+    await question.save()
+
+  } catch(err) {
+    console.log(err);
+    res.status(500).json({ message: "Error creating new question" })
+  }
 }
 // #endregion

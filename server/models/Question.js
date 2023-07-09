@@ -8,7 +8,6 @@ const QuestionSchema = new Schema({
     },
     wanted_answers: {
         type: Array,
-        default: [],
         required: true
     },
     user: {

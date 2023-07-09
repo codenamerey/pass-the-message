@@ -7,7 +7,8 @@ const {
   get_user_unanswered_questions,
   get_user_answered_questions,
   get_user_single_answered_question,
-  create_user
+  create_user,
+  create_question
 } = require('../controllers/userController');
 const requireJwtAuth = require('../middleware/requireJwtAuth');
 
@@ -23,6 +24,8 @@ router.get('/single/:username', check_user_exist);
 router.get('/questions', get_user_unanswered_questions);
 router.get('/:username/questions', get_user_answered_questions);
 router.get('/:username/questions/:id', get_user_single_answered_question)
+
+router.post('/:username/questions', create_question);
 
 router.param('username', (req, res, next, username) => {
   req.username = username;
