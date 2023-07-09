@@ -60,7 +60,7 @@ export default function Home({ user }: InferGetServerSidePropsType<typeof getSer
       <form onSubmit={handleSubmit} ref={form}>
         <FormControl colorScheme='blackAlpha.700' p='4' className=' flex grow flex-col items-center w-full justify-center gap-y-4' color='white'>
           <FormLabel>
-            <Heading color='whiteAlpha.600'>Pass The Message</Heading>
+            <Heading size="lg" color='whiteAlpha.600'>Pass The Message</Heading>
             <Text className='text-center'>to <span className='font-semibold'>{user}</span></Text>
           </FormLabel>
 
