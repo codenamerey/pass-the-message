@@ -7,7 +7,7 @@ import {
   Image,
   Text
 } from '@chakra-ui/react';
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef, useContext, useCallback } from 'react';
 import UserContext from '@/context/UserContext';
 import axios from 'axios';
 import LogOut from '@/components/LogOut';
@@ -17,11 +17,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const { fullname, first_name, setUser } = useContext(UserContext);
-  const fetchUser = useRef(() => {
 
-  });
-
-  fetchUser.current = async() => {
+  const fetchUser = useCallback(async() => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`, {
         withCredentials: true
@@ -33,16 +30,20 @@ export default function Home() {
     } catch(err) {
       console.error(err);
     }
-  }
+  }, [first_name])
 
   useEffect(() => {
     if( first_name ) return
 
-    (async() => {
-      const user = await fetchUser.current();
-      setUser(user);
+    // console.log(first_name);
 
-    })();
+    (async() => {
+      const user = await fetchUser();
+      if (user) {
+        setUser(user);
+      }
+    })()
+
   }, []);
 
   return (
