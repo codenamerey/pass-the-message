@@ -4,7 +4,6 @@ const passport = require('passport');
 
 const cookieExtractor = (req) => {
     let token = req?.cookies['token'];
-
     return token
 }
 

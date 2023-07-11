@@ -1,5 +1,6 @@
 import {  
     Box,
+    Button,
     Text
 } from '@chakra-ui/react';
 import { IsPathDefaultUndefined } from 'mongoose/types/inferschematype.js';
@@ -9,6 +10,9 @@ import type {
 } from 'next';
 import {
     ChangeEvent,
+    useCallback,
+    useContext,
+    useEffect,
     useState
 } from 'react';
 import AnswerPanel from '@/components/AnswerPanel';
@@ -17,20 +21,62 @@ import {
     Answers,
     Data
 } from '@/interfaces/types'
+import axios from 'axios';
+import UserContext from '@/context/UserContext';
 
 
 const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const { username } = useContext(UserContext);
+    const [questions, setQuestions] = useState<Data[]>([]);
+
+    const fetchUserUnansweredQuestions = useCallback(async () => {
+        // Check if username is same with the user from the server side props
+        console.log(username, user);
+        if (username !== user) return;
+
+        try {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/questions`, {withCredentials: true});
+            const questions:Data[] = res.data;
+            console.log(res);
+            setQuestions(questions);
+        } catch(err) {
+
+        }
+    }, [user])
+
+    // fetch user unanswered questions once on mount
+    useEffect(() => {
+        fetchUserUnansweredQuestions();
+    }, [])
 
   return (
     <>
         <div className='w-full flex flex-col md:flex-row justify-center items-center gap-y-4 md:gap-y-0 md:gap-x-4'>
             {
+
+            // If there are no questions, then display the answered questions of user
+            // This means that the user is not the one who is logged in
+            // Or the user is the one who is logged in but has no unanswered questions
+                questions.length === 0 &&
                 data.map((dataObj:Data) => {
                     return (
                         <Question user={user} key={dataObj._id} dataObj={dataObj} />
+                        )
+                    })
+            }
+
+            {
+                // If there are questions, iterate through them
+                questions.length !== 0 &&
+                questions.map((dataObj:Data) => {
+                    return (
+                        <Question user={user} key={dataObj._id} dataObj={dataObj}>
+                            <Button colorScheme="messenger">Answer This Question</Button>
+                        </Question>
                     )
                 })
-            
+
             }
         </div>
     

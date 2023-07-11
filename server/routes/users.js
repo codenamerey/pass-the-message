@@ -21,7 +21,7 @@ router.get('/single/:username', check_user_exist);
 // Gets currently signed in user (Right now gets 'Random User')
 
 // Questions
-router.get('/questions', get_user_unanswered_questions);
+router.get('/questions', requireJwtAuth, get_user_unanswered_questions);
 router.get('/:username/questions', get_user_answered_questions);
 router.get('/:username/questions/:id', get_user_single_answered_question)
 

@@ -54,9 +54,11 @@ exports.get_user_unanswered_questions = async (req, res, next) => {
 
     try {
         const questions = await Question.find({
-            user: req.id,
+            user: req.user.id,
             answered: false
         });
+
+        console.log(questions);
 
         res.status(200).json(questions);
     }

@@ -8,6 +8,9 @@ exports.localLogIn = (req, res, next) => {
         }
 
         if(user) {
+
+            // Set cookie in the client with token as the name and the generated token as the value
+
             res.cookie('token', user.generateJWTToken(), {
                 // Make cookie available for one whole day
                 httpOnly: true,

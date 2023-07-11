@@ -10,9 +10,10 @@ export interface Question {
 }
 
 export type Data = {
-    question: string,
+    content: string,
     wanted_answers: string[],
-    _id: string
+    _id: string,
+    user: User
 }
 
 export type AnswerStructure = {

@@ -87,7 +87,7 @@ export default function Home() {
 
         {first_name && (
           <>
-            <Heading>Welcome, {first_name}!</Heading>
+            <Heading>Welcome, {username}!</Heading>
 
             <Text>What do you want to do?</Text>
 
