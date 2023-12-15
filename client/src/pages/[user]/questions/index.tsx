@@ -3,19 +3,16 @@ import {
     Button,
     Text
 } from '@chakra-ui/react';
-import { IsPathDefaultUndefined } from 'mongoose/types/inferschematype.js';
 import type {
     GetServerSideProps,
     InferGetServerSidePropsType
 } from 'next';
 import {
-    ChangeEvent,
     useCallback,
     useContext,
     useEffect,
     useState
 } from 'react';
-import AnswerPanel from '@/components/AnswerPanel';
 import Question from '@/components/Question';
 import {
     Answers,
@@ -23,14 +20,22 @@ import {
 } from '@/interfaces/types'
 import axios from 'axios';
 import UserContext from '@/context/UserContext';
+import tryUserFetch from '@/utils/tryUserFetch';
 
 
 const Answer = ({data, user}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
-    const { username } = useContext(UserContext);
+    const { username, setUser } = useContext(UserContext);
     const [questions, setQuestions] = useState<Data[]>([]);
 
     const fetchUserUnansweredQuestions = useCallback(async () => {
+
+        if (!username) {
+            const user = await tryUserFetch();
+            if (!user) return;
+            setUser(user);
+        }
+
         // Check if username is same with the user from the server side props
         console.log(username, user);
         if (username !== user) return;

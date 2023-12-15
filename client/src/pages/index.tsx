@@ -2,48 +2,38 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 
 import { Heading, Button, Image, Text } from "@chakra-ui/react";
-import { useEffect, useRef, useContext, useCallback } from "react";
+import { useEffect, useRef, useContext, useCallback, useState } from "react";
 import UserContext from "@/context/UserContext";
-import axios from "axios";
 import LogOut from "@/components/LogOut";
 import Link from "next/link";
 import CopyLink from "@/components/CopyLink";
 import QuestionsLink from "@/components/QuestionsLink";
+import tryUserFetch from "@/utils/tryUserFetch";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { fullname, first_name, setUser, username } = useContext(UserContext);
-
-  const fetchUser = useCallback(async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
-        {
-          withCredentials: true,
-        }
-      );
-
-      const user = res.data;
-      console.log(user);
-      return user;
-    } catch (err) {
-      console.error(err);
-    }
-  }, [first_name]);
+  const { first_name, username, setUser } = useContext(UserContext);
+  const [checkedIfLoggedIn, setCheckIfLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    if (first_name) return;
 
-    // console.log(first_name);
+    if(!username) {   
+      (async() => {
+        const user = await tryUserFetch();
+        if (user) {
+          setUser(user);
+        }
+        return setCheckIfLoggedIn(true);
+        
+      })();
+    } else {
+      setCheckIfLoggedIn(true);
+    }
 
-    (async () => {
-      const user = await fetchUser();
-      if (user) {
-        setUser(user);
-      }
-    })();
   }, []);
+
+  if (!checkedIfLoggedIn) return;
 
   return (
     <>
